@@ -1,0 +1,20 @@
+<property name="JAVA_BIN" value="C:/Program Files/Java/jdk1.5.0_05/bin"/>
+<target name="help">
+    <echo message="Please run: $ ant -v -projecthelp"/>
+</target>
+<target name="jar" depends="build">
+    <jar jarfile="C:\test.jar" 
+    	basedir="build" >
+    </jar>
+</target>
+<target name="apt" depends="jar"
+    	description="process the annotations" >
+    <apply executable="${JAVA_BIN}/apt" dir="." verbose="true"
+	    		parallel="true">
+		<arg value="-classpath"/>
+		<arg value="C:\test.jar;${JAVA_LIB}/tools.jar"/>
+		<arg value="-factory"/>
+		<arg value="com.javalobby.tnt.apt.NoteAnnotationProcessorFactory"/>
+		<fileset dir="src" includes="**/*.java"/>
+    </apply>
+  </target>

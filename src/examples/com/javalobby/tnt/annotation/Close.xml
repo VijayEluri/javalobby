@@ -1,0 +1,93 @@
+<example>
+<description>Close the shell named 'dshell'
+when a button labeled 'CANCEL' is pushed. 
+'dshell' contains the button being selected. 
+</description>
+<code><pre><![CDATA[
+<shell name="dshell" text="Year" pack="true">
+	...
+		<button style="PUSH" text="CANCEL">
+			<listener mask="Selection">
+				<close shell="dshell"/>
+			</listener>
+		</button>
+	...
+</shell>
+]]></pre></code>
+</example>
+<example>
+<description>Close the shell named 'dshell' when a button 
+labeled 'OK' is pressed.  Return the value contained in a text 
+box named year as a "key=value" pair to the calling shell.
+</description>
+<code><pre><![CDATA[
+<shell name="dshell" text="Year" pack="true">
+	...
+		<button style="PUSH" text="OK" default="true">
+			<gridData style="FILL_BOTH"/>
+			<listener mask="Selection">
+				<close shell="dshell">
+					<argument key="Year" value="year"/>
+				</close>
+			</listener>
+		</button>
+	...
+</shell>
+]]></pre></code>
+</example>
+<example>
+<description>A complete example of a popup window prompting for
+a year.
+</description>
+<code><pre><![CDATA[
+<interface><!-- debug="" debugFile="C:\depart.txt"-->
+	<classpath>
+		<pathelement force="true" url="http://@server@:8080/browselib.jar" version="1.0" />
+	</classpath>
+	<shell name="dshell" text="Year" pack="true">
+		<gridLayout numColumns="1"/>
+		<group style="NONE" >
+			<gridData style="FILL_BOTH"/>
+			<gridLayout numColumns="2"/>
+			<label setText="Year:">
+				<gridData style="HORIZONTAL_ALIGN_END">
+				</gridData>
+			</label>
+			<text name="year" style="SINGLE|BORDER" 
+					charLength="4"
+					setTextLimit="4"
+					mask="####" 
+					>
+				<gridData style="HORIZONTAL_ALIGN_FILL">
+				</gridData>
+			</text>
+			<button style="PUSH" text="OK" default="true">
+				<gridData style="FILL_BOTH"/>
+				<listener mask="Selection">
+					<close shell="dshell">
+						<argument key="Year" value="year"/>
+					</close>
+				</listener>
+			</button>
+			<button style="PUSH" text="CANCEL">
+				<gridData style="FILL_BOTH"/>
+				<listener mask="Selection">
+					<close shell="dshell"/>
+				</listener>
+			</button>
+		</group>
+	</shell>
+</interface>
+
+The calling shell has this code:
+
+<menuItem setText="Yearly Totals">
+	<addListener mask="Selection" 
+		interfaceAddress="/getYear.xml"
+		exit="/servlet/Controller?service=TermTotalService&amp;target=/yeartotal.jsp&amp;type=F&amp;Term=ALL"
+		exitReport="true">
+	</addListener>
+</menuItem>
+
+]]></pre></code>
+</example>
