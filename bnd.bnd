@@ -1,0 +1,2 @@
+Bundle-Activator: org.osgilab.bundles.monitoradmin.Activator
+Private-Package: com.javalobby.tnt
